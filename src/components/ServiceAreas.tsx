@@ -128,7 +128,7 @@ export default function ServiceAreas() {
                 {/* Location markers */}
                 {areas.map((area, index) => (
                   <g key={area.name}>
-                    {/* Pulse effect for primary */}
+                    {/* Pulse effect for primary - hidden on mobile for performance */}
                     {area.primary && (
                       <circle
                         cx={area.x}
@@ -137,7 +137,7 @@ export default function ServiceAreas() {
                         fill="none"
                         stroke="var(--gold)"
                         strokeWidth="0.5"
-                        className="opacity-30 animate-ping"
+                        className="opacity-30 animate-ping hidden md:block"
                         style={{ transformOrigin: `${area.x}px ${area.y}px` }}
                       />
                     )}
@@ -152,7 +152,7 @@ export default function ServiceAreas() {
                       strokeWidth={hoveredArea === area.name ? 1.5 : 0.5}
                       initial={{ scale: 0 }}
                       animate={isInView ? { scale: 1 } : {}}
-                      transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
+                      transition={{ delay: 0.3 + index * 0.05, duration: 0.3 }}
                       className="cursor-pointer"
                       onMouseEnter={() => setHoveredArea(area.name)}
                       onMouseLeave={() => setHoveredArea(null)}
@@ -166,7 +166,7 @@ export default function ServiceAreas() {
                       fill="var(--gold)"
                       initial={{ scale: 0 }}
                       animate={isInView ? { scale: hoveredArea === area.name ? 1.5 : 1 } : {}}
-                      transition={{ delay: 0.5 + index * 0.1, duration: 0.3 }}
+                      transition={{ delay: 0.35 + index * 0.05, duration: 0.3 }}
                       className="cursor-pointer"
                       onMouseEnter={() => setHoveredArea(area.name)}
                       onMouseLeave={() => setHoveredArea(null)}
@@ -219,7 +219,7 @@ export default function ServiceAreas() {
                   key={area.name}
                   initial={{ opacity: 0, x: 20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.4 + index * 0.05 }}
+                  transition={{ duration: 0.3, delay: 0.2 + index * 0.03 }}
                   onMouseEnter={() => setHoveredArea(area.name)}
                   onMouseLeave={() => setHoveredArea(null)}
                   className={`group flex items-center gap-4 py-4 border-b border-[var(--ash)] cursor-pointer transition-all duration-300 ${

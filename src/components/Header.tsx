@@ -44,9 +44,10 @@ export default function Header() {
         transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
           isScrolled
-            ? "bg-[var(--void)]/90 backdrop-blur-xl border-b border-[var(--ash)]/30"
+            ? "bg-[var(--void)]/95 backdrop-blur-xl border-b border-[var(--ash)]/30"
             : "bg-transparent"
         }`}
+        style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
         <nav className="max-w-[1800px] mx-auto px-6 md:px-12 py-6 flex items-center justify-between">
           {/* Logo */}

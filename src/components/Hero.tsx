@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   const { scrollYProgress } = useScroll({
@@ -20,6 +21,12 @@ export default function Hero() {
 
   useEffect(() => {
     setIsMounted(true);
+    // Programmatically play video for iOS Safari
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay was prevented, that's okay
+      });
+    }
   }, []);
 
   return (
@@ -30,14 +37,18 @@ export default function Hero() {
       {/* Video Background - Positioned Right on Desktop */}
       <motion.div
         style={{ scale: videoScale, opacity: videoOpacity }}
-        className="absolute inset-0 md:left-[35%] z-0"
+        className="absolute inset-0 md:left-[35%] z-0 will-change-transform"
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
           className="w-full h-full object-cover"
+          // @ts-expect-error webkit-playsinline is valid for iOS Safari
+          webkit-playsinline="true"
         >
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
@@ -51,13 +62,11 @@ export default function Hero() {
       {/* Mobile overlay */}
       <div className="md:hidden absolute inset-0 bg-[var(--void)]/70 z-[1]" />
 
-      {/* Decorative vertical line */}
-      <div className="hidden lg:block absolute top-0 bottom-0 left-[38%] w-px bg-gradient-to-b from-transparent via-[var(--gold)]/20 to-transparent z-[2]" />
 
       {/* Content - Left aligned, asymmetric */}
       <motion.div
         style={{ y: textY }}
-        className="relative z-10 h-full flex flex-col justify-center max-w-[1800px] mx-auto px-6 md:px-12"
+        className="relative z-10 h-full flex flex-col justify-center max-w-[1800px] mx-auto px-6 md:px-12 will-change-transform"
       >
         <div className="max-w-2xl">
           {/* Eyebrow */}

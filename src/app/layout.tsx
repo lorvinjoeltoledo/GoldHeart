@@ -35,6 +35,11 @@ export const metadata: Metadata = {
     description: "Expert remodeling services in Palm Beach County",
     type: "website",
   },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+  },
 };
 
 export default function RootLayout({

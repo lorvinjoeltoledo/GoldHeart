@@ -18,11 +18,14 @@ export default function ContactPage() {
         <section className="relative min-h-[50vh] flex items-end pt-32 pb-20 overflow-hidden">
           {/* Video Background */}
           <div className="absolute inset-0 z-0">
+            {/* @ts-expect-error webkit-playsinline is valid for iOS Safari */}
             <video
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
+              webkit-playsinline="true"
               className="w-full h-full object-cover"
             >
               <source src="/videos/hero.mp4" type="video/mp4" />
