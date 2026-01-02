@@ -47,7 +47,6 @@ export default function Hero() {
           playsInline
           preload="auto"
           className="w-full h-full object-cover"
-          // @ts-expect-error webkit-playsinline is valid for iOS Safari
           webkit-playsinline="true"
         >
           <source src="/videos/hero.mp4" type="video/mp4" />
