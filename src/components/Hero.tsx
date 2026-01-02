@@ -21,12 +21,52 @@ export default function Hero() {
 
   useEffect(() => {
     setIsMounted(true);
-    // Programmatically play video for iOS Safari
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay was prevented, that's okay
-      });
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    let hasPlayed = false;
+
+    const attemptPlay = async () => {
+      if (hasPlayed || !video.paused) return;
+      try {
+        await video.play();
+        hasPlayed = true;
+      } catch {
+        // Still blocked, will retry on next trigger
+      }
+    };
+
+    // Try immediately
+    attemptPlay();
+
+    // Retry on user interaction (iOS Safari unlock)
+    const handleInteraction = () => {
+      attemptPlay();
+    };
+
+    // Retry when video is ready
+    const handleCanPlay = () => attemptPlay();
+
+    // Retry on visibility change
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        attemptPlay();
+      }
+    };
+
+    document.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
+    document.addEventListener('click', handleInteraction, { once: true });
+    document.addEventListener('scroll', handleInteraction, { once: true, passive: true });
+    video.addEventListener('canplay', handleCanPlay);
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('scroll', handleInteraction);
+      video.removeEventListener('canplay', handleCanPlay);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, []);
 
   return (
