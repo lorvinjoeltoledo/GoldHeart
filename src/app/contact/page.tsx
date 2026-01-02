@@ -18,7 +18,6 @@ export default function ContactPage() {
         <section className="relative min-h-[50vh] flex items-end pt-32 pb-20 overflow-hidden">
           {/* Video Background */}
           <div className="absolute inset-0 z-0">
-            {/* @ts-expect-error webkit-playsinline is valid for iOS Safari */}
             <video
               autoPlay
               muted
