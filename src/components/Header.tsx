@@ -198,16 +198,10 @@ export default function Header() {
               >
                 <p className="label-text mb-4">Get in Touch</p>
                 <a
-                  href="tel:+15612567890"
-                  className="block text-2xl text-[var(--text-primary)] hover:text-[var(--gold)] transition-colors mb-2"
+                  href="mailto:info@goldheartconstruction.com"
+                  className="block text-2xl text-[var(--text-primary)] hover:text-[var(--gold)] transition-colors"
                 >
-                  (561) 256-7890
-                </a>
-                <a
-                  href="mailto:hello@goldheartconstruction.com"
-                  className="text-[var(--text-secondary)] hover:text-[var(--gold)] transition-colors"
-                >
-                  hello@goldheartconstruction.com
+                  info@goldheartconstruction.com
                 </a>
               </motion.div>
             </div>
